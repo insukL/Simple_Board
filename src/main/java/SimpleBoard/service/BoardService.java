@@ -1,0 +1,13 @@
+package SimpleBoard.service;
+
+import SimpleBoard.domain.Board;
+
+import java.util.List;
+
+public interface BoardService {
+    public boolean createBoard(Board board);
+    public Board getBoard(Long id);
+    public boolean updateBoard(Board board);
+    public boolean deleteBoard(Board board);
+    public List<Board> getBoardList();
+}

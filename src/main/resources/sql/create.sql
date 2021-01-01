@@ -9,8 +9,8 @@ create table simple_board_database.users(
   updated_at timestamp default current_timestamp
 );
 
-DROP TABLE IF EXISTS simple_board_database.articles;
-create table simple_board_database.articles(
+DROP TABLE IF EXISTS simple_board_database.boards;
+create table simple_board_database.boards(
   id bigint unsigned auto_increment primary key,
   title varchar(100) not null,
   content varchar(2000) not null,
