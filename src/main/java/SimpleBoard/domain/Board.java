@@ -1,6 +1,7 @@
 package SimpleBoard.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 
@@ -49,6 +50,7 @@ public class Board {
     }
 
     public String getNickname() { return nickname; }
+
 
     public void setNickname(String nickname) { this.nickname = nickname; }
 

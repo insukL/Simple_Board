@@ -61,7 +61,7 @@ public class BoardController {
 
     //게시글 목록 가져오기
     @ResponseBody
-    @RequestMapping(value="/board/", method=RequestMethod.GET)
+    @RequestMapping(value="/board/list", method=RequestMethod.GET)
     public ResponseEntity<List<Board>> getList(){
         return new ResponseEntity<List<Board>>(boardService.getBoardList(), HttpStatus.OK);
     }
