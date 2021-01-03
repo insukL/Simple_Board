@@ -1,5 +1,7 @@
 package SimpleBoard.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Board {
@@ -7,8 +9,13 @@ public class Board {
     protected String title;
     protected String content;
     protected String author_id;
+    //nickname은 게시글 DB에 포함되지 않지만 게시글 읽기에선 전달됨
+    protected String nickname;
     protected boolean deleted;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date created_at;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date updated_at;
 
     public long getId() {
@@ -27,9 +34,7 @@ public class Board {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
-    }
+    public String getContent() { return content; }
 
     public void setContent(String content) {
         this.content = content;
@@ -42,6 +47,10 @@ public class Board {
     public void setAuthor_id(String author_id) {
         this.author_id = author_id;
     }
+
+    public String getNickname() { return nickname; }
+
+    public void setNickname(String nickname) { this.nickname = nickname; }
 
     public boolean isDeleted() {
         return deleted;

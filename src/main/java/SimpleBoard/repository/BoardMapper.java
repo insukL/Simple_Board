@@ -18,7 +18,7 @@ public interface BoardMapper {
     public boolean updateBoard(Board board);
 
     @Update(value = "update boards set deleted=#{deleted}, updated_dat=now() where id=#{id}")
-    public boolean softDeleteBoard(Board board);
+    public boolean softDeleteBoard(Long id);
 
     @Delete(value = "delete from boards where id = #{id}")
     public boolean hardDeleteBoard(Long id);
@@ -29,3 +29,4 @@ public interface BoardMapper {
     @Select(value = "select * from boards order by id desc")
     public List<Board> getBoardList();
 }
+

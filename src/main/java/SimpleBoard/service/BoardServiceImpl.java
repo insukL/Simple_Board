@@ -27,8 +27,8 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.updateBoard(board);
     }
 
-    public boolean deleteBoard(Board board){
-        return boardMapper.softDeleteBoard(board);
+    public boolean deleteBoard(Long id){
+        return boardMapper.softDeleteBoard(id);
     }
 
     public List<Board> getBoardList(){
