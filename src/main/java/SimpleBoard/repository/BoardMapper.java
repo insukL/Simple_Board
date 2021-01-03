@@ -14,10 +14,10 @@ public interface BoardMapper {
     @Insert(value = "insert into boards(title, content, author_id) values(#{title}, #{content}, #{author_id})")
     public boolean createBoard(Board board);
 
-    @Update(value = "update boards set title=#{title}, content=#{content}, updated_at=now() where id=#{id}")
+    @Update(value = "update boards set title = #{title}, content=#{content}, updated_at=now() where id = #{id}")
     public boolean updateBoard(Board board);
 
-    @Update(value = "update boards set deleted=#{deleted}, updated_dat=now() where id=#{id}")
+    @Update(value = "update boards set deleted = 1, updated_at=now() where id = #{id}")
     public boolean softDeleteBoard(Long id);
 
     @Delete(value = "delete from boards where id = #{id}")
@@ -26,7 +26,7 @@ public interface BoardMapper {
     @Select(value = "select * from boards where id = #{id}")
     public Board getBoard(Long id);
 
-    @Select(value = "select * from boards order by id desc")
+    @Select(value = "select * from boards where deleted = 0 order by id desc")
     public List<Board> getBoardList();
 }
 

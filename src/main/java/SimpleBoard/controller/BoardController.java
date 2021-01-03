@@ -45,13 +45,15 @@ public class BoardController {
     //게시글 수정
     @ResponseBody
     @RequestMapping(value="/board/{id}", method=RequestMethod.PATCH, consumes = "application/json")
-    public ResponseEntity<String> update(@RequestBody Board board){
+    public ResponseEntity<String> update(@PathVariable("id") Long id, @RequestBody Board board){
+        board.setId(id);
         return boardService.updateBoard(board)
                 ? new ResponseEntity<String>("success", HttpStatus.OK)
                 : new ResponseEntity<String>("fail", HttpStatus.OK);
     }
 
     //게시글 삭제
+    @ResponseBody
     @RequestMapping(value="/board/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<String> delete(@PathVariable("id") long id){
         return boardService.deleteBoard(id)

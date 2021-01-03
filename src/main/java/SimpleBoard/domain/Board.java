@@ -14,9 +14,7 @@ public class Board {
     protected String nickname;
     protected boolean deleted;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date created_at;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date updated_at;
 
     public long getId() {
@@ -50,7 +48,6 @@ public class Board {
     }
 
     public String getNickname() { return nickname; }
-
 
     public void setNickname(String nickname) { this.nickname = nickname; }
 
