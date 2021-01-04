@@ -33,6 +33,8 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.softDeleteBoard(id);
     }
 
+    public boolean restoreBoard(Long id) { return boardMapper.restoreBoard(id);}
+
     public List<Board> getBoardList(){
         return boardMapper.getBoardList();
     }

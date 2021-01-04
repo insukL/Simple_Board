@@ -9,5 +9,6 @@ public interface BoardService {
     public Board getBoard(Long id);
     public boolean updateBoard(Board board);
     public boolean deleteBoard(Long id);
+    public boolean restoreBoard(Long id);
     public List<Board> getBoardList();
 }

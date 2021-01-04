@@ -20,6 +20,9 @@ public interface BoardMapper {
     @Update(value = "update boards set deleted = 1, updated_at=now() where id = #{id}")
     public boolean softDeleteBoard(Long id);
 
+    @Update(value = "update boards set deleted = 0, updated_at=now() where id = #{id}")
+    public boolean restoreBoard(Long id);
+
     @Delete(value = "delete from boards where id = #{id}")
     public boolean hardDeleteBoard(Long id);
 

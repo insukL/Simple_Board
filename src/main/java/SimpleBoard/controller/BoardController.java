@@ -69,6 +69,16 @@ public class BoardController {
                 : new ResponseEntity<String>("fail", HttpStatus.OK);
     }
 
+    //게시글 삭제 복구
+    @ResponseBody
+    @ApiOperation(value = "게시글 삭제 복구", notes = "삭제한 게시글을 복구합니다.")
+    @RequestMapping(value = "/board/restore/{id}", method = RequestMethod.PATCH)
+    public ResponseEntity<String> restore(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") long id){
+        return boardService.restoreBoard(id)
+                ? new ResponseEntity<String>("success", HttpStatus.OK)
+                : new ResponseEntity<String>("fail", HttpStatus.OK);
+    }
+
     //게시글 목록 가져오기
     @ResponseBody
     @ApiOperation(value = "게시글 목록", notes = "게시글 목록을 읽어옵니다.")
