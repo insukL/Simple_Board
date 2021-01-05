@@ -26,10 +26,10 @@ public interface BoardMapper {
     @Delete(value = "delete from boards where id = #{id}")
     public boolean hardDeleteBoard(Long id);
 
-    @Select(value = "select * from boards where id = #{id}")
+    @Select(value = "select * from boards join users on boards.author_id = users.id where boards.id = #{id}")
     public Board getBoard(Long id);
 
-    @Select(value = "select * from boards where deleted = 0 order by id desc")
+    @Select(value = "select * from boards join users on boards.author_id = users.id where deleted = 0 order by boards.id desc")
     public List<Board> getBoardList();
 }
 

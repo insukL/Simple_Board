@@ -9,7 +9,7 @@ public class Board {
     protected long id;
     protected String title;
     protected String content;
-    protected String author_id;
+    protected long author_id;
     //nickname은 게시글 DB에 포함되지 않지만 게시글 읽기에선 전달됨
     protected String nickname;
     protected boolean deleted;
@@ -43,11 +43,11 @@ public class Board {
         this.content = content;
     }
 
-    public String getAuthor_id() {
+    public long getAuthor_id() {
         return author_id;
     }
 
-    public void setAuthor_id(String author_id) {
+    public void setAuthor_id(long author_id) {
         this.author_id = author_id;
     }
 

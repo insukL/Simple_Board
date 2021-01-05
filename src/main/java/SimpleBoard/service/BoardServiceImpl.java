@@ -15,13 +15,11 @@ public class BoardServiceImpl implements BoardService {
     public boolean createBoard(Board board){
         //jwt 관련 메소드 작업 이후 변경 예정
         //User 관련 시스템 만든 이후에 추가
-        board.setAuthor_id("111");
+        board.setAuthor_id(1);
         return boardMapper.createBoard(board);
     }
 
     public Board getBoard(Long id){
-        //별명 관련 정보도 같이 보내야 함
-        //User 관련 시스템 만든 이후에 추가
         return boardMapper.getBoard(id);
     }
 
