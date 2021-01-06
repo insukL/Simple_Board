@@ -31,9 +31,13 @@ public class BoardController {
     @ApiOperation(value = "게시글 작성", notes = "게시글을 작성합니다.")
     @RequestMapping(value="/", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> write(@ApiParam(name="Board", required=true, value="(required:board)") @RequestBody Board board){
-        return boardService.createBoard(board)
-                ? new ResponseEntity<>("success", HttpStatus.OK)
-                : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        try{
+            return boardService.createBoard(board)
+                    ? new ResponseEntity<>("success", HttpStatus.OK)
+                    : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     //게시글 수정
@@ -42,10 +46,14 @@ public class BoardController {
     @RequestMapping(value="/{id}", method=RequestMethod.PATCH, consumes = "application/json")
     public ResponseEntity<String> update(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") Long id,
                                          @ApiParam(name="Board", required=true, value="(required:Board)") @RequestBody Board board){
-        board.setId(id);
-        return boardService.updateBoard(board)
-                ? new ResponseEntity<String>("success", HttpStatus.OK)
-                : new ResponseEntity<String>("fail", HttpStatus.OK);
+        try{
+            board.setId(id);
+            return boardService.updateBoard(board)
+                    ? new ResponseEntity<String>("success", HttpStatus.OK)
+                    : new ResponseEntity<String>("fail", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     //게시글 삭제
