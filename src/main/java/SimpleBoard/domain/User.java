@@ -3,42 +3,66 @@ package SimpleBoard.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class User {
     protected long id;
     protected String account;
     protected String password;
-    protected String nick_name;
+    protected String nickname;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss", timezone = "Asia/Seoul")
-    protected Timestamp created_at;
+    protected Date created_at;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss", timezone = "Asia/Seoul")
-    protected Timestamp updated_at;
+    protected Date updated_at;
 
-    public long getId() { return id; }
+    public long getId() {
+        return id;
+    }
 
-    public void setId(long id) { this.id = id; }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-    public String getAccount() { return account; }
+    public String getAccount() {
+        return account;
+    }
 
-    public void setAccount(String account) { this.account = account; }
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
-    public void setPassword(String password) { this.password = password; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public String getNick_name() { return nick_name; }
+    public String getNickname() {
+        return nickname;
+    }
 
-    public void setNick_name(String nick_name) { this.nick_name = nick_name; }
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
-    public Timestamp getCreated_at() { return created_at; }
+    public Date getCreated_at() {
+        return created_at;
+    }
 
-    public void setCreated_at(Timestamp created_at) { this.created_at = created_at; }
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
 
-    public Timestamp getUpdated_at() { return updated_at; }
+    public Date getUpdated_at() {
+        return updated_at;
+    }
 
-    public void setUpdated_at(Timestamp updated_at) { this.updated_at = updated_at; }
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
 }

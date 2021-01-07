@@ -13,10 +13,10 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserMapper userMapper;
 
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public boolean signUp(User user){
-        if(userMapper.getUser(user.getAccount()) == null) return false;
+        if(userMapper.getUser(user.getAccount()) != null) return false;
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userMapper.createUser(user);
     }

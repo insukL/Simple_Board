@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS simple_board_database.users;
 create table simple_board_database.users(
     id bigint unsigned auto_increment primary key,
     account varchar(50) not null unique,
-    password varchar(50) not null,
+    password varchar(60) not null,
     nickname varchar(50) not null,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
