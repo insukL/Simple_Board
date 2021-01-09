@@ -13,7 +13,6 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="SimpleBoard.controller"/>
     <context:component-scan base-package="SimpleBoard.swagger"/>
-    <context:component-scan base-package="SimpleBoard.util"/>
 
     <mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>
     <mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>

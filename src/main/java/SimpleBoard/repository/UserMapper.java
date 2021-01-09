@@ -13,10 +13,10 @@ public interface UserMapper {
     public boolean createUser(User user);
 
     @Select(value = "select * from users where id = #{id}")
-    public User getUser(Long id);
+    public User getUserByID(Long id);
 
     @Select(value = "select * from users where account = #{account}")
-    public User getUser(String account);
+    public User getUserByAccount(String account);
 
     @Select(value = "select * from users")
     public List<User> getUserList();

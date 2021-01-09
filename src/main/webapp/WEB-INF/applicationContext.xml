@@ -9,5 +9,6 @@
 
     <context:component-scan base-package="SimpleBoard.service"/>
     <context:component-scan base-package="SimpleBoard.repository"/>
+    <context:component-scan base-package="SimpleBoard.util"/>
 
 </beans>
