@@ -2,7 +2,6 @@ package SimpleBoard.service;
 
 import SimpleBoard.domain.Board;
 import SimpleBoard.repository.BoardMapper;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +10,7 @@ import java.util.List;
 @Service
 public class BoardServiceImpl implements BoardService {
     @Autowired
-    BoardMapper boardMapper;
+    private BoardMapper boardMapper;
 
     public boolean createBoard(Board board) throws IllegalArgumentException {
         if(board.getContent().trim().length() <= 0 || board.getTitle().trim().length() <= 0)

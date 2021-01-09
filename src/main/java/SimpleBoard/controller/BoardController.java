@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping(value = "/board")
 public class BoardController {
     @Autowired
-    BoardService boardService;
+    private BoardService boardService;
 
     //게시글 읽기
     @ResponseBody

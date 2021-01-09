@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import SimpleBoard.service.UserService;
 
+import java.util.HashMap;
+
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
@@ -25,5 +27,12 @@ public class UserController {
         return userService.signUp(user)
                 ? new ResponseEntity<String>("success", HttpStatus.OK)
                 : new ResponseEntity<String>("fail", HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<String> login(@RequestBody User user){
+        String token = userService.login(user);
+        return new ResponseEntity<String>(token, HttpStatus.OK);
     }
 }
