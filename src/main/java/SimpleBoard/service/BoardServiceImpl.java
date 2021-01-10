@@ -2,6 +2,8 @@ package SimpleBoard.service;
 
 import SimpleBoard.domain.Board;
 import SimpleBoard.repository.BoardMapper;
+import SimpleBoard.repository.UserMapper;
+import SimpleBoard.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +14,16 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardMapper boardMapper;
 
-    public boolean createBoard(Board board) throws IllegalArgumentException {
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    public boolean createBoard(String token, Board board) throws IllegalArgumentException {
         if(board.getContent().trim().length() <= 0 || board.getTitle().trim().length() <= 0)
             throw new IllegalArgumentException("Please enter title and content.");
-        //jwt 관련 메소드 작업 이후 변경 예정
-        //User 관련 시스템 만든 이후에 추가
-        board.setAuthor_id(1);
+        board.setAuthor_id(jwtUtil.getIdByToken(token));
         return boardMapper.createBoard(board);
     }
 
@@ -25,17 +31,22 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.getBoard(id);
     }
 
-    public boolean updateBoard(Board board) throws IllegalArgumentException {
+    public boolean updateBoard(String token, Board board) throws IllegalArgumentException {
         if(board.getContent().trim().length() <= 0 || board.getTitle().trim().length() <= 0)
             throw new IllegalArgumentException("Please enter title and content.");
+        if(jwtUtil.getIdByToken(token) != board.getAuthor_id()) throw new IllegalArgumentException();
         return boardMapper.updateBoard(board);
     }
 
-    public boolean deleteBoard(Long id){
+    public boolean deleteBoard(String token, Long id) throws Exception {
+        if(jwtUtil.getIdByToken(token) != boardMapper.getBoard(id).getAuthor_id()) throw new Exception();
         return boardMapper.softDeleteBoard(id);
     }
 
-    public boolean restoreBoard(Long id) { return boardMapper.restoreBoard(id);}
+    public boolean restoreBoard(String token, Long id) throws Exception{
+        if(jwtUtil.getIdByToken(token) != boardMapper.getBoard(id).getAuthor_id()) throw new Exception();
+        return boardMapper.restoreBoard(id);
+    }
 
     public List<Board> getBoardList(){
         return boardMapper.getBoardList();

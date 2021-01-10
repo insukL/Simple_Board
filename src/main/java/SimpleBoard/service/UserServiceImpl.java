@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
     public String login(User user){
         User userInfo = userMapper.getUserByAccount(user.getAccount());
         if(!bCryptPasswordEncoder.matches(user.getPassword(), userInfo.getPassword())) {
-            return "Fail";
+            return "Login Fail";
         }
         return jwtUtil.createToken(userInfo.getId());
     }

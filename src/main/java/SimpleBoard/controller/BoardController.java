@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -30,9 +31,10 @@ public class BoardController {
     @ResponseBody
     @ApiOperation(value = "게시글 작성", notes = "게시글을 작성합니다.")
     @RequestMapping(value="/", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> write(@ApiParam(name="Board", required=true, value="(required:board)") @RequestBody Board board){
+    public ResponseEntity<String> write(@ApiIgnore @RequestHeader("Authorization") String token,
+                                        @ApiParam(name="Board", required=true, value="(required:board)") @RequestBody Board board){
         try{
-            return boardService.createBoard(board)
+            return boardService.createBoard(token, board)
                     ? new ResponseEntity<>("success", HttpStatus.OK)
                     : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e){
@@ -44,11 +46,12 @@ public class BoardController {
     @ResponseBody
     @ApiOperation(value = "게시글 수정", notes = "게시글을 수정합니다.")
     @RequestMapping(value="/{id}", method=RequestMethod.PATCH, consumes = "application/json")
-    public ResponseEntity<String> update(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") Long id,
+    public ResponseEntity<String> update(@ApiIgnore @RequestHeader("Authorization") String token,
+                                         @ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") Long id,
                                          @ApiParam(name="Board", required=true, value="(required:Board)") @RequestBody Board board){
         try{
             board.setId(id);
-            return boardService.updateBoard(board)
+            return boardService.updateBoard(token, board)
                     ? new ResponseEntity<String>("success", HttpStatus.OK)
                     : new ResponseEntity<String>("fail", HttpStatus.OK);
         } catch (Exception e){
@@ -60,20 +63,30 @@ public class BoardController {
     @ResponseBody
     @ApiOperation(value = "게시글 삭제", notes = "게시글을 삭제합니다.")
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<String> delete(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") long id){
-        return boardService.deleteBoard(id)
-                ? new ResponseEntity<String>("success", HttpStatus.OK)
-                : new ResponseEntity<String>("fail", HttpStatus.OK);
+    public ResponseEntity<String> delete(@ApiIgnore @RequestHeader("Authorization") String token,
+                                         @ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") long id){
+        try{
+            return boardService.deleteBoard(token, id)
+                    ? new ResponseEntity<String>("success", HttpStatus.OK)
+                    : new ResponseEntity<String>("fail", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     //게시글 삭제 복구
     @ResponseBody
     @ApiOperation(value = "게시글 삭제 복구", notes = "삭제한 게시글을 복구합니다.")
     @RequestMapping(value = "/restore/{id}", method = RequestMethod.PATCH)
-    public ResponseEntity<String> restore(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") long id){
-        return boardService.restoreBoard(id)
-                ? new ResponseEntity<String>("success", HttpStatus.OK)
-                : new ResponseEntity<String>("fail", HttpStatus.OK);
+    public ResponseEntity<String> restore(@ApiIgnore @RequestHeader("Authorization") String token,
+                                          @ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") long id){
+        try{
+            return boardService.restoreBoard(token, id)
+                    ? new ResponseEntity<String>("success", HttpStatus.OK)
+                    : new ResponseEntity<String>("fail", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     //게시글 목록 가져오기
