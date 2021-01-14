@@ -8,6 +8,8 @@ public interface UserService {
     public boolean signUp(User user);
     public String login(User user);
     public boolean logout();
-    public User getUser(long id);
+    public boolean deleteAccount(String token);
+    public boolean updateAccount(String token, User user);
+    public User getUser(String token);
     public List<User> getUserList();
 }

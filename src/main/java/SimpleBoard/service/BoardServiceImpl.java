@@ -21,23 +21,16 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.createBoard(board);
     }
 
-    public Board getBoard(long id){
-        return boardMapper.getBoard(id);
-    }
+    public Board getBoard(long id){ return boardMapper.getBoard(id); }
 
-    public boolean updateBoard(Board board){
+    public boolean updateBoard(long id, Board board){
+        board.setId(id);
         return boardMapper.updateBoard(board);
     }
 
     public boolean deleteBoard(long id){
-        return boardMapper.softDeleteBoard(id);
+        return boardMapper.deleteBoard(id);
     }
 
-    public boolean restoreBoard(long id){
-        return boardMapper.restoreBoard(id);
-    }
-
-    public List<Board> getBoardList(){
-        return boardMapper.getBoardList();
-    }
+    public List<Board> getBoardList(){ return boardMapper.getBoardList(); }
 }

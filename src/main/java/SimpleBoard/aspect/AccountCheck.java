@@ -1,5 +1,7 @@
 package SimpleBoard.aspect;
 
+import SimpleBoard.exception.TokenExpireException;
+import SimpleBoard.exception.TokenInvalidException;
 import SimpleBoard.repository.BoardMapper;
 import SimpleBoard.util.JwtUtil;
 import org.aspectj.lang.JoinPoint;
@@ -22,17 +24,18 @@ public class AccountCheck {
     BoardMapper boardMapper;
 
     //로그인 여부 확인
-    @Before("execution(* SimpleBoard.controller.BoardController.*(..))" +
+    @Before("(execution(* SimpleBoard.controller.BoardController.*(..))" +
+            "|| execution(* SimpleBoard.controller.UserController.*(..)))" +
             "&& !@annotation(SimpleBoard.annotation.NoLogin)")
-    public void checkLogin() throws Exception{
+    public void checkLogin() throws RuntimeException{
         String token = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes())
                 .getRequest()
                 .getHeader("Authorization");
 
-        if(token == null || token.isEmpty()) throw new Exception();
-        if(!token.startsWith("Bearer ")) throw new Exception();
-        if(token.length() < 8) throw new Exception();
-        if(jwtUtil.getExpireByToken(token).before(new Date())) throw new Exception();
+        if(token == null || token.isEmpty()) throw new TokenInvalidException("Token이 존재하지 않습니다.");
+        if(!token.startsWith("Bearer ")) throw new TokenInvalidException("Token이 유효하지 않습니다.");
+        if(token.length() < 8) throw new TokenInvalidException("Token이 유효하지 않습니다.");
+        if(jwtUtil.getExpireByToken(token).before(new Date())) throw new TokenExpireException("Token이 만료되었습니다");
     }
 
     //게시글 접근시 접근 권한 확인

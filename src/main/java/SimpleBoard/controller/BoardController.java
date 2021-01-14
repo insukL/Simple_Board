@@ -3,6 +3,8 @@ package SimpleBoard.controller;
 import SimpleBoard.annotation.NoLogin;
 import SimpleBoard.annotation.NoPermission;
 import SimpleBoard.domain.Board;
+import SimpleBoard.exception.TokenExpireException;
+import SimpleBoard.exception.TokenInvalidException;
 import SimpleBoard.service.BoardService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -48,10 +50,9 @@ public class BoardController {
     @RequestMapping(value="/{id}", method=RequestMethod.PATCH, consumes = "application/json")
     public ResponseEntity<String> update(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") long id,
                                          @ApiParam(name="Board", required=true, value="(required:Board)") @RequestBody Board board){
-        board.setId(id);
-        return boardService.updateBoard(board)
+        return boardService.updateBoard(id, board)
                 ? new ResponseEntity<String>("success", HttpStatus.OK)
-                : new ResponseEntity<String>("fail", HttpStatus.OK);
+                : new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     //게시글 삭제
@@ -61,17 +62,7 @@ public class BoardController {
     public ResponseEntity<String> delete(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") long id){
         return boardService.deleteBoard(id)
                 ? new ResponseEntity<String>("success", HttpStatus.OK)
-                : new ResponseEntity<String>("fail", HttpStatus.OK);
-    }
-
-    //게시글 삭제 복구
-    @ResponseBody
-    @ApiOperation(value = "게시글 삭제 복구", notes = "삭제한 게시글을 복구합니다.")
-    @RequestMapping(value = "/restore/{id}", method = RequestMethod.PATCH)
-    public ResponseEntity<String> restore(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") long id){
-        return boardService.restoreBoard(id)
-                ? new ResponseEntity<String>("success", HttpStatus.OK)
-                : new ResponseEntity<String>("fail", HttpStatus.OK);
+                : new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     //게시글 목록 가져오기

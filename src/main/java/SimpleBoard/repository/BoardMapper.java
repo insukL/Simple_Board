@@ -1,7 +1,6 @@
 package SimpleBoard.repository;
 
 import SimpleBoard.domain.Board;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -18,18 +17,12 @@ public interface BoardMapper {
     public boolean updateBoard(Board board);
 
     @Update(value = "update boards set deleted = 1, updated_at=now() where id = #{id}")
-    public boolean softDeleteBoard(Long id);
+    public boolean deleteBoard(Long id);
 
-    @Update(value = "update boards set deleted = 0, updated_at=now() where id = #{id}")
-    public boolean restoreBoard(Long id);
-
-    @Delete(value = "delete from boards where id = #{id}")
-    public boolean hardDeleteBoard(Long id);
-
-    @Select(value = "select * from boards join users on boards.author_id = users.id where boards.id = #{id}")
+    @Select(value = "select * from boards join users on boards.author_id = users.id where boards.id = #{id} and boards.deleted = 0")
     public Board getBoard(Long id);
 
-    @Select(value = "select * from boards join users on boards.author_id = users.id where deleted = 0 order by boards.id desc")
+    @Select(value = "select * from boards join users on boards.author_id = users.id where boards.deleted = 0 order by boards.id desc")
     public List<Board> getBoardList();
 }
 

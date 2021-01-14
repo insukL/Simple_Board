@@ -10,6 +10,7 @@ public class User {
     protected String account;
     protected String password;
     protected String nickname;
+    protected boolean deleted;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss", timezone = "Asia/Seoul")
@@ -48,6 +49,14 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public Date getCreated_at() {
