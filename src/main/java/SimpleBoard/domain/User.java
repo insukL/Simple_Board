@@ -1,7 +1,6 @@
 package SimpleBoard.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.sql.Date;
 
@@ -12,10 +11,8 @@ public class User {
     protected String nickname;
     protected boolean deleted;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss", timezone = "Asia/Seoul")
     protected Date created_at;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss", timezone = "Asia/Seoul")
     protected Date updated_at;
 

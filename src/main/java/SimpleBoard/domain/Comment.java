@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class Board {
+public class Comment {
     protected long id;
-    protected String title;
-    protected String content;
+    protected long article_id;
     protected long author_id;
-    //nickname은 게시글 DB에 포함되지 않지만 게시글 읽기에선 전달됨
-    protected String nickname;
+    protected String content;
+    protected long parent;
     protected boolean deleted;
+    protected String nickname;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     protected Date created_at;
@@ -26,18 +26,12 @@ public class Board {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public long getArticle_id() {
+        return article_id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() { return content; }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setArticle_id(long article_id) {
+        this.article_id = article_id;
     }
 
     public long getAuthor_id() {
@@ -48,9 +42,21 @@ public class Board {
         this.author_id = author_id;
     }
 
-    public String getNickname() { return nickname; }
+    public String getContent() {
+        return content;
+    }
 
-    public void setNickname(String nickname) { this.nickname = nickname; }
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public long getParent() {
+        return parent;
+    }
+
+    public void setParent(long parent) {
+        this.parent = parent;
+    }
 
     public boolean isDeleted() {
         return deleted;
@@ -58,6 +64,14 @@ public class Board {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public Date getCreated_at() {
