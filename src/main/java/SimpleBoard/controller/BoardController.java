@@ -36,7 +36,7 @@ public class BoardController {
     //게시글 작성 기능
     @ResponseBody
     @ApiOperation(value = "게시글 작성", notes = "게시글을 작성합니다.")
-    @RequestMapping(value="/", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value="/", method = RequestMethod.POST)
     public ResponseEntity<String> write(@ApiIgnore @RequestHeader("Authorization") String token,
                                         @ApiParam(name="Board", required=true, value="(required:board)") @RequestBody Board board){
         return boardService.createBoard(token, board)
@@ -47,7 +47,7 @@ public class BoardController {
     //게시글 수정
     @ResponseBody
     @ApiOperation(value = "게시글 수정", notes = "게시글을 수정합니다.")
-    @RequestMapping(value="/{id}", method=RequestMethod.PATCH, consumes = "application/json")
+    @RequestMapping(value="/{id}", method=RequestMethod.PATCH)
     public ResponseEntity<String> update(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable("id") long id,
                                          @ApiParam(name="Board", required=true, value="(required:Board)") @RequestBody Board board){
         return boardService.updateBoard(id, board)

@@ -19,10 +19,10 @@ public interface BoardMapper {
     @Update(value = "update boards set deleted = 1, updated_at=now() where id = #{id}")
     public boolean deleteBoard(Long id);
 
-    @Select(value = "select * from boards join users on boards.author_id = users.id where boards.id = #{id} and boards.deleted = 0")
+    @Select(value = "select boards.*, users.nickname from boards join users on boards.author_id = users.id where boards.id = #{id} and boards.deleted = 0")
     public Board getBoard(Long id);
 
-    @Select(value = "select * from boards join users on boards.author_id = users.id where boards.deleted = 0 order by boards.id desc")
+    @Select(value = "select boards.*, users.nickname from boards join users on boards.author_id = users.id where boards.deleted = 0 order by boards.id desc")
     public List<Board> getBoardList();
 }
 

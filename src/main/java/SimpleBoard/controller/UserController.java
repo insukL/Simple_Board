@@ -19,6 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @NoLogin
     @ApiOperation(value = "회원가입", notes = "회원 정보를 추가합니다.")
     @ResponseBody
     @RequestMapping(value = "/", method = RequestMethod.POST)

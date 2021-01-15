@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService{
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public boolean signUp(User user){
+        if(user.getAccount().trim().length() <= 0 || user.getPassword().trim().length() <= 0 || user.getNickname().trim().length() <= 0) return false;
         if(userMapper.getUserByAccount(user.getAccount()) != null) return false;
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userMapper.createUser(user);
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService{
     }
 
     public boolean updateAccount(String token, User user){
+        if(user.getNickname().trim().length() <= 0) return false;
         user.setId(jwtUtil.getIdByToken(token));
         return userMapper.updateUser(user);
     }
