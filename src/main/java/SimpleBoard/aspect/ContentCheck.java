@@ -10,7 +10,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(10)
+@Order(value = 10)
 @Aspect
 public class ContentCheck {
     @Before("execution(* SimpleBoard.controller.BoardController.*(.., SimpleBoard.domain.Board))")
