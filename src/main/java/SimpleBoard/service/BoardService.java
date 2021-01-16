@@ -9,5 +9,5 @@ public interface BoardService {
     public Board getBoard(long id);
     public boolean updateBoard(long id, Board board);
     public boolean deleteBoard(long id);
-    public List<Board> getBoardList();
+    public List<Board> getBoardList(long page);
 }

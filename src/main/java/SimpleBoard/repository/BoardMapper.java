@@ -22,7 +22,8 @@ public interface BoardMapper {
     @Select(value = "select boards.*, users.nickname from boards join users on boards.author_id = users.id where boards.id = #{id} and boards.deleted = 0")
     public Board getBoard(Long id);
 
-    @Select(value = "select boards.*, users.nickname from boards join users on boards.author_id = users.id where boards.deleted = 0 order by boards.id desc")
-    public List<Board> getBoardList();
+    @Select(value = "select boards.*, users.nickname from boards join users on boards.author_id = users.id " +
+            "where boards.deleted = 0 order by boards.id desc limit #{offset}, 10")
+    public List<Board> getBoardList(long offset);
 }
 

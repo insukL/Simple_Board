@@ -32,5 +32,7 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.deleteBoard(id);
     }
 
-    public List<Board> getBoardList(){ return boardMapper.getBoardList(); }
+    public List<Board> getBoardList(long page){
+        return boardMapper.getBoardList((page - 1) * 10);
+    }
 }

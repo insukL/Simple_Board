@@ -70,8 +70,8 @@ public class BoardController {
     @NoPermission
     @ResponseBody
     @ApiOperation(value = "게시글 목록", notes = "게시글 목록을 읽어옵니다.")
-    @RequestMapping(value="/", method=RequestMethod.GET)
-    public ResponseEntity<List<Board>> getList(){
-        return new ResponseEntity<List<Board>>(boardService.getBoardList(), HttpStatus.OK);
+    @RequestMapping(value="/list", method=RequestMethod.GET)
+    public ResponseEntity<List<Board>> getList(@RequestParam(value = "page", required = false, defaultValue = "1") long page){
+        return new ResponseEntity<List<Board>>(boardService.getBoardList(page), HttpStatus.OK);
     }
 }
