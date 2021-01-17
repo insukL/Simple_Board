@@ -10,4 +10,5 @@ public interface BoardService {
     public boolean updateBoard(long id, Board board);
     public boolean deleteBoard(long id);
     public List<Board> getBoardList(long page);
+    public boolean changeRecommendState(String token, long id);
 }

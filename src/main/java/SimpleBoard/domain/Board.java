@@ -9,9 +9,12 @@ public class Board {
     protected String title;
     protected String content;
     protected long author_id;
-    //nickname은 게시글 DB에 포함되지 않지만 게시글 읽기에선 전달됨
-    protected String nickname;
     protected boolean deleted;
+    //nickname, recommend, comment는 게시글 읽기에서 전달
+    protected String nickname;
+    protected long views;
+    protected long recommend_num;
+    protected long comment_num;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     protected Date created_at;
@@ -51,6 +54,18 @@ public class Board {
     public String getNickname() { return nickname; }
 
     public void setNickname(String nickname) { this.nickname = nickname; }
+
+    public long getViews() { return views; }
+
+    public void setViews(long views) { this.views = views; }
+
+    public long getRecommend_num() { return recommend_num; }
+
+    public void setRecommend_num(long recommend_num) { this.recommend_num = recommend_num; }
+
+    public long getComment_num() { return comment_num; }
+
+    public void setComment_num(long comment_num) { this.comment_num = comment_num; }
 
     public boolean isDeleted() {
         return deleted;

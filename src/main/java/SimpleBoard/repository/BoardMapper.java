@@ -25,5 +25,20 @@ public interface BoardMapper {
     @Select(value = "select boards.*, users.nickname from boards join users on boards.author_id = users.id " +
             "where boards.deleted = 0 order by boards.id desc limit #{offset}, 10")
     public List<Board> getBoardList(long offset);
+
+    @Update(value = "update boards set views = views + 1 where id = #{id}")
+    public boolean countViews(long id);
+
+    @Update(value = "update boards set recommend_num = recommend_num + 1 where id = #{id}")
+    public boolean plusRecommendNum(long id);
+
+    @Update(value = "update boards set recommend_num = recommend_num - 1 where id = #{id}")
+    public boolean minusRecommendNum(long id);
+
+    @Update(value = "update boards set comment_num = comment_num + 1 where id = #{id}")
+    public boolean plusCommentNum(long id);
+
+    @Update(value = "update boards set comment_num = comment_num - 1 where id = #{id}")
+    public boolean minusCommentNum(long id);
 }
 

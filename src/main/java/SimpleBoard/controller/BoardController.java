@@ -3,8 +3,6 @@ package SimpleBoard.controller;
 import SimpleBoard.annotation.NoLogin;
 import SimpleBoard.annotation.NoPermission;
 import SimpleBoard.domain.Board;
-import SimpleBoard.exception.TokenExpireException;
-import SimpleBoard.exception.TokenInvalidException;
 import SimpleBoard.service.BoardService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -74,5 +72,16 @@ public class BoardController {
     public ResponseEntity<List<Board>> getList(@ApiParam(name="page", required=true, value="(required:page)")
                                                    @RequestParam(value = "page", required = false, defaultValue = "1") long page){
         return new ResponseEntity<List<Board>>(boardService.getBoardList(page), HttpStatus.OK);
+    }
+
+    //게시글 추천
+    @NoPermission
+    @ResponseBody
+    @RequestMapping(value = "/{id}/recommend/", method = RequestMethod.POST)
+    public ResponseEntity<String> recommend(@ApiIgnore @RequestHeader("Authorization") String token,
+                                            @PathVariable long id){
+        return boardService.changeRecommendState(token, id)
+                ? new ResponseEntity<>("success", HttpStatus.OK)
+                : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -1,10 +1,13 @@
 package SimpleBoard.service;
 
 import SimpleBoard.domain.Board;
+import SimpleBoard.domain.Recommend;
 import SimpleBoard.repository.BoardMapper;
+import SimpleBoard.repository.RecommendMapper;
 import SimpleBoard.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +17,9 @@ public class BoardServiceImpl implements BoardService {
     private BoardMapper boardMapper;
 
     @Autowired
+    private RecommendMapper recommendMapper;
+
+    @Autowired
     private JwtUtil jwtUtil;
 
     public boolean createBoard(String token, Board board){
@@ -21,7 +27,11 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.createBoard(board);
     }
 
-    public Board getBoard(long id){ return boardMapper.getBoard(id); }
+    @Transactional
+    public Board getBoard(long id){
+        boardMapper.countViews(id);
+        return boardMapper.getBoard(id);
+    }
 
     public boolean updateBoard(long id, Board board){
         board.setId(id);
@@ -34,5 +44,20 @@ public class BoardServiceImpl implements BoardService {
 
     public List<Board> getBoardList(long page){
         return boardMapper.getBoardList((page - 1) * 10);
+    }
+
+    @Transactional
+    public boolean changeRecommendState(String token, long id){
+        Recommend recommend = new Recommend();
+        recommend.setArticle_id(id);
+        recommend.setAuthor_id(jwtUtil.getIdByToken(token));
+        if(recommendMapper.findRecommend(recommend) == 1 ){
+            recommendMapper.deleteRecommend(recommend);
+            boardMapper.minusRecommendNum(id);
+        } else {
+            recommendMapper.createRecommend(recommend);
+            boardMapper.plusRecommendNum(id);
+        }
+        return true;
     }
 }

@@ -1,10 +1,12 @@
 package SimpleBoard.service;
 
 import SimpleBoard.domain.Comment;
+import SimpleBoard.repository.BoardMapper;
 import SimpleBoard.repository.CommentMapper;
 import SimpleBoard.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,11 +16,16 @@ public class CommentServiceImpl implements CommentService{
     private CommentMapper commentMapper;
 
     @Autowired
+    private BoardMapper boardMapper;
+
+    @Autowired
     private JwtUtil jwtUtil;
 
+    @Transactional
     public boolean createComment(String token, long articleId, Comment comment){
         comment.setArticle_id(articleId);
         comment.setAuthor_id(jwtUtil.getIdByToken(token));
+        boardMapper.plusCommentNum(articleId);
         return commentMapper.createComment(comment);
     }
 
@@ -29,5 +36,9 @@ public class CommentServiceImpl implements CommentService{
         return commentMapper.updateComment(comment);
     }
 
-    public boolean deleteComment(long id){ return commentMapper.deleteComment(id); }
+    @Transactional
+    public boolean deleteComment(long id){
+        boardMapper.minusCommentNum(id);
+        return commentMapper.deleteComment(id);
+    }
 }

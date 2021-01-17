@@ -17,6 +17,9 @@ create table simple_board_database.boards(
     title varchar(100) not null,
     content varchar(2000) not null,
     author_id bigint unsigned not null,
+    views bigint unsigned default 0,
+    recommend_num bigint unsigned default 0,
+    comment_num bigint unsigned default 0,
     deleted bit(1) default 0,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
@@ -32,4 +35,12 @@ create table simple_board_database.comments(
     deleted bit(1) default 0,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
+);
+
+DROP TABLE IF EXISTS simple_board_database.recommend;
+create table simple_board_database.recommend(
+    article_id bigint unsigned,
+    author_id bigint unsigned,
+    created_at timestamp default current_timestamp,
+    primary key(article_id, author_id)
 );

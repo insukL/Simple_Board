@@ -32,6 +32,6 @@ public class ContentCheck {
         }
 
         if(comment.getContent().trim().length() <= 0)
-            throw new NoContentException("제목이나 내용이 없습니다.");
+            throw new NoContentException("내용이 없습니다.");
     }
 }

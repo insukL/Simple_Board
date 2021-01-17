@@ -17,7 +17,7 @@ public interface CommentMapper {
     @Select(value = "select comments.*, users.nickname from comments " +
             "join users on comments.author_id = users.id " +
             "where article_id = #{article_id} and comments.deleted = 0 " +
-            "order by if(parent = 0, comments.id, parent), comments.id")
+            "order by if(parent = 0, comments.id, parent)")
     public List<Comment> getComment(long article_id);
 
     @Update(value = "update comments set deleted = 1, updated_at = now() where id = #{id}")

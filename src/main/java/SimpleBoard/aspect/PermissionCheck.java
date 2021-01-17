@@ -1,5 +1,6 @@
 package SimpleBoard.aspect;
 
+import SimpleBoard.exception.PermissionInvalidException;
 import SimpleBoard.repository.BoardMapper;
 import SimpleBoard.repository.CommentMapper;
 import SimpleBoard.util.JwtUtil;
@@ -28,7 +29,7 @@ public class PermissionCheck {
     //게시글 접근시 접근 권한 확인
     @Before("execution(* SimpleBoard.controller.BoardController.*(long, ..))" +
             "&& !@annotation(SimpleBoard.annotation.NoPermission)")
-    public void checkBoardPermission(JoinPoint joinPoint) throws Exception{
+    public void checkBoardPermission(JoinPoint joinPoint) throws PermissionInvalidException{
         String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                 .getRequest()
                 .getHeader("Authorization");
@@ -41,12 +42,12 @@ public class PermissionCheck {
             }
         }
 
-        if(boardMapper.getBoard(id).getAuthor_id() != jwtUtil.getIdByToken(token)) throw new Exception();
+        if(boardMapper.getBoard(id).getAuthor_id() != jwtUtil.getIdByToken(token)) throw new PermissionInvalidException("불가능한 접근입니다");
     }
 
     @Before("execution(* SimpleBoard.controller.CommentController.*(long, ..))" +
             "&& !@annotation(SimpleBoard.annotation.NoPermission)")
-    public void checkCommentPermission(JoinPoint joinPoint) throws Exception{
+    public void checkCommentPermission(JoinPoint joinPoint) throws PermissionInvalidException{
         String token = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes())
                 .getRequest()
                 .getHeader("Authorization");
@@ -59,6 +60,6 @@ public class PermissionCheck {
             }
         }
 
-        if(commentMapper.getCommentById(id).getAuthor_id() != jwtUtil.getIdByToken(token)) throw new Exception();
+        if(commentMapper.getCommentById(id).getAuthor_id() != jwtUtil.getIdByToken(token)) throw new PermissionInvalidException("불가능한 접근입니다");
     }
 }
