@@ -1,6 +1,7 @@
 package SimpleBoard.service;
 
 import SimpleBoard.domain.User;
+import SimpleBoard.exception.EmptyStringException;
 import SimpleBoard.repository.UserMapper;
 import SimpleBoard.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,9 @@ public class UserServiceImpl implements UserService{
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    public boolean signUp(User user){
-        if(user.getAccount().trim().length() <= 0 || user.getPassword().trim().length() <= 0 || user.getNickname().trim().length() <= 0) return false;
+    public boolean signUp(User user) throws EmptyStringException{
+        if(user.getAccount().trim().length() <= 0 || user.getPassword().trim().length() <= 0 || user.getNickname().trim().length() <= 0)
+            throw new EmptyStringException("입력되지 않은 항목이 있습니다.");
         if(userMapper.getUserByAccount(user.getAccount()) != null) return false;
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userMapper.createUser(user);
@@ -38,8 +40,8 @@ public class UserServiceImpl implements UserService{
         return userMapper.deletedUser(jwtUtil.getIdByToken(token));
     }
 
-    public boolean updateAccount(String token, User user){
-        if(user.getNickname().trim().length() <= 0) return false;
+    public boolean updateAccount (String token, User user) throws EmptyStringException{
+        if(user.getNickname().trim().length() <= 0) throw new EmptyStringException("닉네임이 입력되지 않았습니다");
         user.setId(jwtUtil.getIdByToken(token));
         return userMapper.updateUser(user);
     }

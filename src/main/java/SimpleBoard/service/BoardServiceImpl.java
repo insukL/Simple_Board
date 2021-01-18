@@ -51,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
         Recommend recommend = new Recommend();
         recommend.setArticle_id(id);
         recommend.setAuthor_id(jwtUtil.getIdByToken(token));
-        if(recommendMapper.findRecommend(recommend) == 1 ){
+        if(recommendMapper.findRecommend(recommend) >= 1 ){
             recommendMapper.deleteRecommend(recommend);
             boardMapper.minusRecommendNum(id);
         } else {

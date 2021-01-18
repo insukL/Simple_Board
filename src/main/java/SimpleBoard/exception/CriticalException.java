@@ -1,6 +1,6 @@
 package SimpleBoard.exception;
 
-public class CriticalException extends RuntimeException {
+public class CriticalException extends BaseException {
     public CriticalException(){
         super();
     }
