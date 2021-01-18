@@ -49,10 +49,6 @@ public class UserServiceImpl implements UserService{
     public boolean logout(){ return false; }
 
     public User getUser(String token){
-        User user = userMapper.getUserByID(jwtUtil.getIdByToken(token));
-        user.setPassword("");
-        return user;
+        return userMapper.getUserByID(jwtUtil.getIdByToken(token));
     }
-
-    public List<User> getUserList(){ return userMapper.getUserList(); }
 }

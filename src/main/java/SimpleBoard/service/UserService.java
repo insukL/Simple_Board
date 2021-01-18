@@ -11,5 +11,4 @@ public interface UserService {
     public boolean deleteAccount(String token);
     public boolean updateAccount(String token, User user);
     public User getUser(String token);
-    public List<User> getUserList();
 }

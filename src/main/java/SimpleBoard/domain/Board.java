@@ -9,10 +9,10 @@ public class Board {
     protected String title;
     protected String content;
     protected long author_id;
+    protected long views;
     protected boolean deleted;
     //nickname, recommend, comment는 게시글 읽기에서 전달
     protected String nickname;
-    protected long views;
     protected long recommend_num;
     protected long comment_num;
 
@@ -51,13 +51,13 @@ public class Board {
         this.author_id = author_id;
     }
 
-    public String getNickname() { return nickname; }
-
-    public void setNickname(String nickname) { this.nickname = nickname; }
-
     public long getViews() { return views; }
 
     public void setViews(long views) { this.views = views; }
+
+    public String getNickname() { return nickname; }
+
+    public void setNickname(String nickname) { this.nickname = nickname; }
 
     public long getRecommend_num() { return recommend_num; }
 

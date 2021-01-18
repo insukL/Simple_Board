@@ -13,7 +13,7 @@ public interface UserMapper {
     @Insert(value = "insert into users(account, password, nickname) values(#{account}, #{password}, #{nickname})")
     public boolean createUser(User user);
 
-    @Select(value = "select * from users where deleted = 0 and id = #{id}")
+    @Select(value = "select id, account, nickname, created_at, updated_at from users where deleted = 0 and id = #{id}")
     public User getUserByID(Long id);
 
     @Select(value = "select * from users where deleted = 0 and account = #{account}")
@@ -24,7 +24,4 @@ public interface UserMapper {
 
     @Update(value = "update users set nickname = #{nickname}, updated_at=now() where id = #{id}")
     public boolean updateUser(User user);
-
-    @Select(value = "select * from users where deleted = 0")
-    public List<User> getUserList();
 }

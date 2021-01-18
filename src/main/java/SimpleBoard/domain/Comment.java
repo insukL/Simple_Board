@@ -11,6 +11,7 @@ public class Comment {
     protected String content;
     protected long parent;
     protected boolean deleted;
+    //Column이 존재하지 않는 필드
     protected String nickname;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
