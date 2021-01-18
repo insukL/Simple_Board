@@ -46,18 +46,12 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.getBoardList((page - 1) * 10);
     }
 
-    @Transactional
     public boolean changeRecommendState(String token, long id){
         Recommend recommend = new Recommend();
         recommend.setArticle_id(id);
         recommend.setAuthor_id(jwtUtil.getIdByToken(token));
-        if(recommendMapper.findRecommend(recommend) >= 1 ){
-            recommendMapper.deleteRecommend(recommend);
-            boardMapper.minusRecommendNum(id);
-        } else {
-            recommendMapper.createRecommend(recommend);
-            boardMapper.plusRecommendNum(id);
-        }
+        if(recommendMapper.findRecommend(recommend) >= 1) recommendMapper.deleteRecommend(recommend);
+        else recommendMapper.createRecommend(recommend);
         return true;
     }
 }

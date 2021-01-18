@@ -77,9 +77,10 @@ public class BoardController {
     //게시글 추천
     @NoPermission
     @ResponseBody
+    @ApiOperation(value = "게시글 추천", notes = "게시글 추천 상태를 변경합니다.")
     @RequestMapping(value = "/{id}/recommend/", method = RequestMethod.POST)
     public ResponseEntity<String> recommend(@ApiIgnore @RequestHeader("Authorization") String token,
-                                            @PathVariable long id){
+                                            @ApiParam(name="id", required=true, value="(required:id)") @PathVariable long id){
         return boardService.changeRecommendState(token, id)
                 ? new ResponseEntity<>("success", HttpStatus.OK)
                 : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);

@@ -11,7 +11,7 @@ public class Board {
     protected long author_id;
     protected long views;
     protected boolean deleted;
-    //nickname, recommend, comment는 게시글 읽기에서 전달
+    //nickname은 게시글 읽기에서 전달
     protected String nickname;
     protected long recommend_num;
     protected long comment_num;

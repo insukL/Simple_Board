@@ -37,8 +37,7 @@ public class LoginCheck {
                 .getHeader("Authorization");
 
         if(token == null || token.isEmpty()) throw new TokenInvalidException("Token이 존재하지 않습니다.");
-        if(!token.startsWith("Bearer ")) throw new TokenInvalidException("Token이 유효하지 않습니다.");
-        if(token.length() < 8) throw new TokenInvalidException("Token이 유효하지 않습니다.");
+        if(!token.startsWith("Bearer ") || token.length() < 8) throw new TokenInvalidException("Token이 유효하지 않습니다.");
         if(jwtUtil.getExpireByToken(token).before(new Date())) throw new TokenExpireException("Token이 만료되었습니다");
     }
 }

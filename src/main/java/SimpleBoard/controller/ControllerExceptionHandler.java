@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ControllerExceptionHandler {
     @ResponseBody
     @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ExceptionDTO> exceptionHandle(BaseException ex){
-        ExceptionDTO e = new ExceptionDTO();
-        e.setClassName(ex.getClass().getSimpleName());
-        e.setErrorMessage(ex.getMessage());
-        e.setErrorTrace(ex.getStackTrace()[0].getClassName());
-        return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ExceptionDTO> exceptionHandle(BaseException e){
+        ExceptionDTO exceptionDTO = new ExceptionDTO();
+        exceptionDTO.setClassName(e.getClass().getSimpleName());
+        exceptionDTO.setErrorMessage(e.getMessage());
+        exceptionDTO.setErrorTrace(e.getStackTrace()[0].getClassName());
+        return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
 }

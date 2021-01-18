@@ -18,8 +18,6 @@ create table simple_board_database.boards(
     content varchar(2000) not null,
     author_id bigint unsigned not null,
     views bigint unsigned default 0,
-    recommend_num bigint unsigned default 0,
-    comment_num bigint unsigned default 0,
     deleted bit(1) default 0,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp

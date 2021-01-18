@@ -16,16 +16,11 @@ public class CommentServiceImpl implements CommentService{
     private CommentMapper commentMapper;
 
     @Autowired
-    private BoardMapper boardMapper;
-
-    @Autowired
     private JwtUtil jwtUtil;
 
-    @Transactional
     public boolean createComment(String token, long articleId, Comment comment){
         comment.setArticle_id(articleId);
         comment.setAuthor_id(jwtUtil.getIdByToken(token));
-        boardMapper.plusCommentNum(articleId);
         return commentMapper.createComment(comment);
     }
 
@@ -36,9 +31,5 @@ public class CommentServiceImpl implements CommentService{
         return commentMapper.updateComment(comment);
     }
 
-    @Transactional
-    public boolean deleteComment(long id){
-        boardMapper.minusCommentNum(id);
-        return commentMapper.deleteComment(id);
-    }
+    public boolean deleteComment(long id){ return commentMapper.deleteComment(id);  }
 }

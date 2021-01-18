@@ -30,7 +30,7 @@ public class CommentController {
     }
     
     @ResponseBody
-    @ApiOperation(value = "댓글 작성", notes = "댓글을 읽어옵니다.\nparent를 담아서 보내면 reply(대댓글), 아무것도 담겨있지 않다면 일반 댓글")
+    @ApiOperation(value = "댓글 작성", notes = "댓글을 읽어옵니다. parent를 담아서 보내면 대댓글, 아무것도 담겨있지 않다면 일반 댓글")
     @RequestMapping(value = "board/{id}/comment/", method = RequestMethod.POST)
     public ResponseEntity<String> createComment(@ApiIgnore @RequestHeader("Authorization") String token,
                                                 @ApiParam(name="id", required=true, value="(required:id)") @PathVariable long id,
