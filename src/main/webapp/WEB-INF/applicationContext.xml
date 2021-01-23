@@ -12,4 +12,5 @@
     <context:component-scan base-package="SimpleBoard.util"/>
     <context:component-scan base-package="SimpleBoard.aspect"/>
 
+    <bean id = "bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 </beans>

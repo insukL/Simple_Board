@@ -18,7 +18,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private JwtUtil jwtUtil;
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public boolean signUp(User user) throws EmptyStringException{
         if(user.getAccount().trim().length() <= 0 || user.getPassword().trim().length() <= 0 || user.getNickname().trim().length() <= 0)
