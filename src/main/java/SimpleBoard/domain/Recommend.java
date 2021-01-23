@@ -7,7 +7,7 @@ import java.util.Date;
 public class Recommend {
     protected long article_id;
     protected long author_id;
-    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     protected Date created_at;
 
     public long getArticle_id() {

@@ -78,7 +78,7 @@ public class BoardController {
     @NoPermission
     @ResponseBody
     @ApiOperation(value = "게시글 추천", notes = "게시글 추천 상태를 변경합니다.")
-    @RequestMapping(value = "/{id}/recommend/", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/recommend", method = RequestMethod.POST)
     public ResponseEntity<String> recommend(@ApiIgnore @RequestHeader("Authorization") String token,
                                             @ApiParam(name="id", required=true, value="(required:id)") @PathVariable long id){
         return boardService.changeRecommendState(token, id)

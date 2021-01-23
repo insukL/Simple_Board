@@ -24,14 +24,14 @@ public class CommentController {
     @NoPermission
     @ApiOperation(value = "댓글 읽기", notes = "댓글을 읽어옵니다.")
     @ResponseBody
-    @RequestMapping(value = "board/{id}/comment/", method = RequestMethod.GET)
+    @RequestMapping(value = "board/{id}/comment", method = RequestMethod.GET)
     public ResponseEntity<List<Comment>> getComment(@ApiParam(name="id", required=true, value="(required:id)") @PathVariable long id){
         return new ResponseEntity<List<Comment>>(commentService.getComment(id), HttpStatus.OK);
     }
     
     @ResponseBody
     @ApiOperation(value = "댓글 작성", notes = "댓글을 읽어옵니다. parent를 담아서 보내면 대댓글, 아무것도 담겨있지 않다면 일반 댓글")
-    @RequestMapping(value = "board/{id}/comment/", method = RequestMethod.POST)
+    @RequestMapping(value = "board/{id}/comment", method = RequestMethod.POST)
     public ResponseEntity<String> createComment(@ApiIgnore @RequestHeader("Authorization") String token,
                                                 @ApiParam(name="id", required=true, value="(required:id)") @PathVariable long id,
                                                 @ApiParam(name="comment", required=true, value="(required:comment)") @RequestBody Comment comment){
