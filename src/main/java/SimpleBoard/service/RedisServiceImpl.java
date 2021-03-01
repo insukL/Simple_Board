@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 @Service
 public class RedisServiceImpl implements RedisService {
+    /*
     @Resource(name = "redisTemplate")
     private ValueOperations<String, String> valueOps;
 
@@ -20,4 +21,5 @@ public class RedisServiceImpl implements RedisService {
         String result = valueOps.get(key);
         return result;
     }
+     */
 }

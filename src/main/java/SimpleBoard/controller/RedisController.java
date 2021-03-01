@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class RedisController {
-
+    /*
     @Autowired
     private RedisService redisService;
 
@@ -23,5 +23,7 @@ public class RedisController {
     public ResponseEntity<String> setredis(String key, String value) {
         return new ResponseEntity<String>(redisService.setStr(key, value), HttpStatus.OK);
     }
+
+     */
 
 }

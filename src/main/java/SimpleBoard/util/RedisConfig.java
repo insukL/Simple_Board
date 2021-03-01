@@ -8,7 +8,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 @Configuration
 public class RedisConfig {
-
+    /*
     @Value("${redis.host}")
     private String host;
 
@@ -32,4 +32,5 @@ public class RedisConfig {
         stringRedisTemplate.setConnectionFactory(jedisConnectionFactory);
         return stringRedisTemplate;
     }
+     */
 }
