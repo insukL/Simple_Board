@@ -5,6 +5,7 @@ import SimpleBoard.domain.Recommend;
 import SimpleBoard.repository.BoardMapper;
 import SimpleBoard.repository.RecommendMapper;
 import SimpleBoard.util.JwtUtil;
+import SimpleBoard.util.XSSChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,13 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private XSSChecker xssChecker;
+
     public boolean createBoard(String token, Board board){
         board.setAuthor_id(jwtUtil.getIdByToken(token));
+        board.setTitle(xssChecker.checkXSS(board.getTitle()));
+        board.setContent(xssChecker.checkXSS(board.getContent()));
         return boardMapper.createBoard(board);
     }
 

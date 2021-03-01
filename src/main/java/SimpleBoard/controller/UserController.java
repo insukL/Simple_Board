@@ -1,6 +1,7 @@
 package SimpleBoard.controller;
 
 import SimpleBoard.annotation.NoLogin;
+import SimpleBoard.annotation.UserNoti;
 import SimpleBoard.domain.User;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -62,5 +63,11 @@ public class UserController {
         return userService.updateAccount(token, user)
                 ? new ResponseEntity<String>("success", HttpStatus.OK)
                 : new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @NoLogin
+    @RequestMapping(value="/error", method = RequestMethod.GET)
+    public void raiseError(){
+        throw new NullPointerException();
     }
 }
