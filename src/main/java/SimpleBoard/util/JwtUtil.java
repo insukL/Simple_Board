@@ -23,10 +23,12 @@ public class JwtUtil{
     private SecretKey key;
 
     // 생성자 이외의 초기화 메소드
+    /*
     @PostConstruct
     public void JwtUtil(){
         key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
+     */
 
 
     public String createToken(long id){
